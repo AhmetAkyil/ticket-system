@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using TicketSystem.Enums;
 
 namespace TicketSystem.Models
@@ -14,8 +16,18 @@ namespace TicketSystem.Models
         [Required]
         public TicketStatus Status { get; set; }
 
-        public long CreatedByUserId { get; set; }
-        public long? AssignedToUserId { get; set; }
+
         public DateTime CreatedDate { get; set; }
+
+        [ForeignKey("CreatedByUser")]
+        public long CreatedByUserId { get; set; }
+        [ValidateNever]
+        public User CreatedByUser { get; set; }
+
+
+        [ForeignKey("AssignedToUser")]
+        public long? AssignedToUserId { get; set; }
+        [ValidateNever]
+        public User AssignedToUser { get; set; }
     }
 }

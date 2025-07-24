@@ -1,66 +1,39 @@
 ﻿@model IEnumerable<TicketSystem.Models.Ticket>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tickets";
     Layout = "~/Views/Shared/_TemplateLayout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class="mt-4">Ticket List</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<a asp-action="Create" class="btn btn-success mb-3">Create New Ticket</a>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedByUserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssignedToUserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th></th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Created By</th>
+            <th>Assigned To</th>
+            <th>Created Date</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedByUserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignedToUserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TicketId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Status</td>
+                <td>@item.CreatedByUser?.Username</td>
+                <td>@item.AssignedToUser?.Username</td>
+                <td>@item.CreatedDate.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TicketId" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.TicketId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.TicketId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using TicketSystem.Enums;
 
 namespace TicketSystem.Models
 {
@@ -11,7 +13,12 @@ namespace TicketSystem.Models
         [Required]
         public string Password { get; set; }
         [Required]
-        public string Role { get; set; }
+        public UserRoles Role { get; set; }
+
+        [ValidateNever]
+        public ICollection<Ticket> CreatedTickets { get; set; }
+        [ValidateNever]
+        public ICollection<Ticket> AssignedTickets { get; set; }
 
     }
 }
